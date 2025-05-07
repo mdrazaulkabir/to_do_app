@@ -11,11 +11,10 @@ class login extends StatefulWidget {
 }
 
 class _loginState extends State<login> {
+  final formkey = GlobalKey<FormState>();
 
-  final formkey=GlobalKey<FormState>();
-
-  TextEditingController nameController =TextEditingController();
-  TextEditingController passController=TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +52,12 @@ class _loginState extends State<login> {
                 height: 30,
               ),
               TextFormField(
-                controller: nameController ,
-                validator: (value){
-                  if(value!.isEmpty){
+                controller: nameController,
+                validator: (value) {
+                  if (value!.isEmpty) {
                     return 'Empty is not allow!';
-                  }
-                  else return null;
+                  } else
+                    return null;
                 },
                 decoration: InputDecoration(
                     filled: true,
@@ -76,19 +75,16 @@ class _loginState extends State<login> {
               ),
               TextFormField(
                 controller: passController,
-                validator: (value){
-                  if(value==null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Empty not allow!";
-                  } else if(value.length<6){
+                  } else if (value.length < 6) {
                     return "Password must be 6 character!";
                   }
                   return null;
                   //here passsController.txt and value are same:
 
-
-
-                 // value!.isEmpty? return ("Enpty cann't allow") : null;
-
+                  // value!.isEmpty? return ("Enpty cann't allow") : null;
                 },
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -102,13 +98,44 @@ class _loginState extends State<login> {
                     suffixIcon: Icon(Icons.visibility)),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton.icon(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.green[100],
+                          fixedSize: Size(double.infinity, 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      icon: Icon(Icons.check_box_outline_blank),
+                      label: Text("Remember for 30 Days")),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: TextButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            backgroundColor: Colors.green[100]),
+                        child: Text(
+                          "Forgot password",
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
               ),
               ElevatedButton(
                   onPressed: () {
-                    if(formkey.currentState!.validate()){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>toDoApp()));
-
+                    if (formkey.currentState!.validate()) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => toDoApp()));
                     }
                   },
                   style: OutlinedButton.styleFrom(
@@ -123,14 +150,52 @@ class _loginState extends State<login> {
               SizedBox(
                 height: 20,
               ),
+              Text('OR'),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.green[100],
+                            fixedSize: Size(double.infinity, 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        icon: Icon(Icons.email_outlined),
+                        label: Text("Sign up with Gmail")),
+                    ElevatedButton.icon(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.green[100],
+                            fixedSize: Size(double.infinity, 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        icon: Icon(Icons.facebook),
+                        label: Text("Sign up with Facebook")),
+
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
               RichText(
                 text: TextSpan(text: "Don't have an acount? ", children: [
                   TextSpan(
                       text: " Sign Up",
                       style: TextStyle(color: Colors.blue),
-                      recognizer: TapGestureRecognizer()..onTap = () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>signUp()));
-                      }),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => signUp()));
+                        }),
                 ]),
               ),
 

@@ -11,8 +11,7 @@ class signUp extends StatefulWidget {
 }
 
 class _signUpState extends State<signUp> {
-
-  final formkey=GlobalKey<FormState>();
+  final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -33,20 +32,20 @@ class _signUpState extends State<signUp> {
       body: Padding(
         padding: EdgeInsets.all(10),
         child: Form(
-          key:formkey,
+          key: formkey,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 25,
                 ),
                 Text(
                   "Register",
                   style: TextStyle(fontSize: 30),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 Text(
                   "Create your account for To-Do App",
@@ -54,21 +53,47 @@ class _signUpState extends State<signUp> {
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  controller: nameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Empty not allow!";
-                    }
-                  },
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person),
-                      hintText: "Username",
-                      labelText: "Enter your name:",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      fillColor: Colors.greenAccent,
-                      filled: true),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Empty not allow!";
+                          }
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            hintText: "FirstName",
+                            labelText: "Enter your FirstName:",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            fillColor: Colors.greenAccent,
+                            filled: true),
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Expanded(
+                      child: TextFormField(
+                        controller: nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Empty not allow!";
+                          }
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            hintText: "LastName",
+                            labelText: "Enter your LastName:",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            fillColor: Colors.greenAccent,
+                            filled: true),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 10,
@@ -78,15 +103,14 @@ class _signUpState extends State<signUp> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Empty not allow!";
-                    }
-                    else if(!value.contains('@')){
+                    } else if (!value.contains('@')) {
                       return "Missing '@' symbol!";
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                    border:
-                        OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     prefixIcon: Icon(Icons.email_outlined),
                     hintText: "Email",
                     labelText: "Enter your email:",
@@ -94,7 +118,6 @@ class _signUpState extends State<signUp> {
                     fillColor: Colors.greenAccent,
                   ),
                 ),
-
                 SizedBox(
                   height: 10,
                 ),
@@ -103,15 +126,14 @@ class _signUpState extends State<signUp> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Empty not allow!";
-                    }
-                    else if(value.length<6){
+                    } else if (value.length < 6) {
                       return "Password mush be 6 character!";
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                    border:
-                        OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     prefixIcon: Icon(Icons.password),
                     hintText: "Password",
                     labelText: "Enter your password:",
@@ -127,15 +149,14 @@ class _signUpState extends State<signUp> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Empty not allow!";
-                    }
-                    else if(value.length<6){
+                    } else if (value.length < 6) {
                       return "Password mush be 6 character!";
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                    border:
-                        OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     prefixIcon: Icon(Icons.password),
                     hintText: "Confirm Password",
                     labelText: "Enter again your password:",
@@ -144,16 +165,17 @@ class _signUpState extends State<signUp> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 25,
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      if(formkey.currentState!.validate()){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>toDoApp()));
+                      if (formkey.currentState!.validate()) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => toDoApp()));
                       }
                     },
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                        backgroundColor: Colors.blue,
                         fixedSize: Size(double.maxFinite, 20),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
@@ -162,16 +184,19 @@ class _signUpState extends State<signUp> {
                       style: TextStyle(color: Colors.white),
                     )),
                 SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 RichText(
-                    text: TextSpan(text: "Already have an account? ", children: [
+                    text:
+                        TextSpan(text: "Already have an account? ", children: [
                   TextSpan(
                       text: " Login",
                       style: TextStyle(color: Colors.blue),
-                      recognizer: TapGestureRecognizer()..onTap = () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>login()));
-                      })
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => login()));
+                        })
                 ]))
               ],
             ),
