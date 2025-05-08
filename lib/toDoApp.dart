@@ -8,18 +8,9 @@ class toDoApp extends StatefulWidget {
 }
 
 class _toDoAppState extends State<toDoApp> {
-
-  void textAdd(){
-    if(addController.text.isNotEmpty){
-      setState(() {
-        Task.add(addController.text);
-      });
-    }
-  }
-
-
   TextEditingController addController = TextEditingController();
-  String? addTask;
+
+  //String? addTask;
 
   List<String> Task = [];
 
@@ -62,9 +53,12 @@ class _toDoAppState extends State<toDoApp> {
                 ),
                 TextButton(
                     onPressed: () {
-                      setState(() {
-                        addTask=addController.text;
-                      });
+                      if (addController.text.isNotEmpty) {
+                        setState(() {
+                          Task.add(addController.text);
+                          addController.clear();
+                        });
+                      }
                     },
                     style: OutlinedButton.styleFrom(
                         fixedSize: Size(double.minPositive, double.infinity),
@@ -87,16 +81,28 @@ class _toDoAppState extends State<toDoApp> {
             SizedBox(
               height: 15,
             ),
-            ListTile(
-              title: Text(addTask.toString()),
-              //leading: Icon(Icons.delete),
-              trailing: IconButton(onPressed: (){}, icon: Icon(Icons.delete)),
 
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                      color: Colors.greenAccent,width: 5),
-            ))
+            Expanded(
+              child: ListView.builder(
+                  itemCount: Task.length, itemBuilder: (context, index) {
+                    return ListTile(
+                        title: Text(Task[index]),
+                        //leading: Icon(Icons.delete),
+                        trailing: IconButton(
+                            onPressed: () {
+                             setState(() {
+                               Task.removeAt(index);
+                             });
+                            },
+                            icon: Icon(Icons.delete)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(color: Colors.greenAccent, width: 5),
+                        ));
+              }),
+            ),
+
+
           ],
         ),
       ),
