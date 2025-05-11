@@ -148,7 +148,7 @@ class _loginState extends State<login> {
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => toDoApp()));
+                            MaterialPageRoute(builder: (context) => toDoApp(name: "kabir",phone: "2123",gmail: "kabir@",)));
                       }
                     },
                     style: OutlinedButton.styleFrom(

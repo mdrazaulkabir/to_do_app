@@ -13,7 +13,8 @@ class signUp extends StatefulWidget {
 class _signUpState extends State<signUp> {
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController gmailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController rePassController = TextEditingController();
 
@@ -62,7 +63,8 @@ class _signUpState extends State<signUp> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Empty not allow!";
-                          }
+                          } else
+                            return null;
                         },
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.person),
@@ -74,14 +76,17 @@ class _signUpState extends State<signUp> {
                             filled: true),
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                       child: TextFormField(
                         controller: nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Empty not allow!";
-                          }
+                          } else
+                            return null;
                         },
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.person),
@@ -98,8 +103,32 @@ class _signUpState extends State<signUp> {
                 SizedBox(
                   height: 10,
                 ),
+                Expanded(
+                  child: TextFormField(
+                    controller: phoneController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Empty not allow!";
+                      } else if (value.length < 11) {
+                        return "Phone number must be 11 digit";
+                      } else
+                        null;
+                    },
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person),
+                        hintText: "Phone number",
+                        labelText: "Enter your Phone number:",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        fillColor: Colors.greenAccent,
+                        filled: true),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
-                  controller: emailController,
+                  controller: gmailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Empty not allow!";
@@ -170,8 +199,14 @@ class _signUpState extends State<signUp> {
                 ElevatedButton(
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => toDoApp()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => toDoApp(
+                                      name: nameController.text,
+                                      phone: phoneController.text,
+                                      gmail: gmailController.text,
+                                    )));
                       }
                     },
                     style: OutlinedButton.styleFrom(
