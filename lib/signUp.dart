@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/login.dart';
 import 'package:to_do_app/toDoApp.dart';
+import 'package:to_do_app/users.dart';
+
 
 class signUp extends StatefulWidget {
   const signUp({super.key});
@@ -11,12 +13,16 @@ class signUp extends StatefulWidget {
 }
 
 class _signUpState extends State<signUp> {
+
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
+  TextEditingController nameControllerLast = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController gmailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController rePassController = TextEditingController();
+  bool isObscure=true;
+  bool isObscure1=true;
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +87,11 @@ class _signUpState extends State<signUp> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: nameController,
+                        controller: nameControllerLast,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Empty not allow!";
-                          } else
+                          }
                             return null;
                         },
                         decoration: InputDecoration(
@@ -103,26 +109,24 @@ class _signUpState extends State<signUp> {
                 SizedBox(
                   height: 10,
                 ),
-                Expanded(
-                  child: TextFormField(
-                    controller: phoneController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Empty not allow!";
-                      } else if (value.length < 11) {
-                        return "Phone number must be 11 digit";
-                      } else
-                        null;
-                    },
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        hintText: "Phone number",
-                        labelText: "Enter your Phone number:",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        fillColor: Colors.greenAccent,
-                        filled: true),
-                  ),
+                TextFormField(
+                  controller: phoneController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Empty not allow!";
+                    } else if (value.length < 11) {
+                      return "Phone number must be 11 digit";
+                    }
+                     return null;
+                  },
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.person),
+                      hintText: "Phone number",
+                      labelText: "Enter your Phone number:",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      fillColor: Colors.greenAccent,
+                      filled: true),
                 ),
                 SizedBox(
                   height: 10,
@@ -151,6 +155,7 @@ class _signUpState extends State<signUp> {
                   height: 10,
                 ),
                 TextFormField(
+                  obscureText: isObscure,
                   controller: passController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -168,18 +173,23 @@ class _signUpState extends State<signUp> {
                     labelText: "Enter your password:",
                     filled: true,
                     fillColor: Colors.greenAccent,
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isObscure=!isObscure;
+                            });
+                          }, icon: Icon(Icons.visibility_off_outlined))
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextFormField(
+                  obscureText: isObscure1,
                   controller: rePassController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Empty not allow!";
-                    } else if (value.length < 6) {
-                      return "Password mush be 6 character!";
+                    if (value !=passController.text) {
+                      return "Password is not matching!";
                     }
                     return null;
                   },
@@ -191,6 +201,12 @@ class _signUpState extends State<signUp> {
                     labelText: "Enter again your password:",
                     filled: true,
                     fillColor: Colors.greenAccent,
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isObscure1=!isObscure1;
+                            });
+                          }, icon: Icon(Icons.visibility_off))
                   ),
                 ),
                 SizedBox(
@@ -198,12 +214,23 @@ class _signUpState extends State<signUp> {
                 ),
                 ElevatedButton(
                     onPressed: () {
+
                       if (formkey.currentState!.validate()) {
+
+                        users[nameController.text]={
+                          "password":passController.text,
+                          "namelast":nameControllerLast.text,
+                          'phone':phoneController.text,
+                          'gmail':gmailController.text,
+                        };
+
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => toDoApp(
                                       name: nameController.text,
+                                      namelast: nameControllerLast.text,
                                       phone: phoneController.text,
                                       gmail: gmailController.text,
                                     )));

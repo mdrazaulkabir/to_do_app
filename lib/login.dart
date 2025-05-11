@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/signUp.dart';
 import 'package:to_do_app/toDoApp.dart';
+import 'package:to_do_app/users.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -15,6 +16,7 @@ class _loginState extends State<login> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
+   bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,7 @@ class _loginState extends State<login> {
                   height: 10,
                 ),
                 TextFormField(
+                  obscureText: isObscure,
                   controller: passController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -96,7 +99,12 @@ class _loginState extends State<login> {
                       prefixIcon: Icon(Icons.password),
                       hintText: 'Password',
                       labelText: "Enter your password",
-                      suffixIcon: Icon(Icons.visibility)),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isObscure=!isObscure;
+                            });
+                          }, icon: Icon(Icons.visibility_off))),
                 ),
                 SizedBox(
                   height: 20,
@@ -142,13 +150,30 @@ class _loginState extends State<login> {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 6,
                 ),
                 ElevatedButton(
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => toDoApp(name: "kabir",phone: "2123",gmail: "kabir@",)));
+                        final enterName = nameController.text;
+                        final enterPass = passController.text;
+
+                        if (users.containsKey(enterName) &&
+                            users[enterName]!['password'] == enterPass) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => toDoApp(
+                                        name: enterName,
+                                        namelast:
+                                            users[enterName]!['namelast']!,
+                                        phone: users[enterName]!['phone']!,
+                                        gmail: users[enterName]!['gmail']!,
+                                      )));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Invalid username or password!")));
+                        }
                       }
                     },
                     style: OutlinedButton.styleFrom(
@@ -183,7 +208,9 @@ class _loginState extends State<login> {
                             icon: Icon(Icons.email_outlined),
                             label: Text("Sign up with Gmail")),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Expanded(
                         child: ElevatedButton.icon(
                             onPressed: () {},
@@ -195,7 +222,6 @@ class _loginState extends State<login> {
                             icon: Icon(Icons.facebook),
                             label: Text("Sign up with Facebook")),
                       ),
-
                     ],
                   ),
                 ),

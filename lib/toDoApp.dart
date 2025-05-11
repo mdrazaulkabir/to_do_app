@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class toDoApp extends StatefulWidget {
-  final String name,phone,gmail;
-  const toDoApp({super.key,required this.name,required this.phone,required this.gmail});
+  final String name,namelast,phone,gmail;
+  const toDoApp({super.key,required this.name,required this.namelast,required this.phone,required this.gmail});
 
   @override
   State<toDoApp> createState() => _toDoAppState();
@@ -63,7 +63,7 @@ class _toDoAppState extends State<toDoApp> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Your name is: ${widget.name}",style: TextStyle(fontSize: 18),),
+                    Text("Your name is: ${widget.name} ${widget.namelast}",style: TextStyle(fontSize: 18),),
                     SizedBox(
                       height: 10,
                     ),
@@ -124,29 +124,33 @@ class _toDoAppState extends State<toDoApp> {
               //         shape: RoundedRectangleBorder(
               //             borderRadius: BorderRadius.circular(10))),
               //     child: Text("submit")),
-              SizedBox(
-                height: 15,
-              ),
-
+              SizedBox(height: 15,),
               SizedBox(height: 300,
                 child: ListView.builder(
                     itemCount: Task.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                          title: Text(Task[index]),
-                          //leading: Icon(Icons.delete),
-                          trailing: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  Task.removeAt(index);
-                                });
-                              },
-                              icon: Icon(Icons.delete)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(color: Colors.redAccent, width: 5),
-                          ));
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ListTile(
+                            title: Text(Task[index]),
+                            //leading: Icon(Icons.delete),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Task.removeAt(index);
+                                  });
+                                },
+                                icon: Icon(Icons.delete)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: Colors.redAccent, width: 5),
+                            )),
+                      );
                     }),
+              ),
+
+              SizedBox(
+                height: 15,
               ),
             ],
           ),
