@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/customPage.dart';
 import 'package:to_do_app/signUp.dart';
 import 'package:to_do_app/toDoApp.dart';
 import 'package:to_do_app/users.dart';
@@ -137,7 +138,9 @@ class _loginState extends State<login> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>customPage()));
+                          },
                           style: OutlinedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -199,7 +202,10 @@ class _loginState extends State<login> {
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>customPage()));
+
+                            },
                             style: OutlinedButton.styleFrom(
                                 backgroundColor: Colors.green[100],
                                 fixedSize: Size(double.infinity, 20),
@@ -213,7 +219,10 @@ class _loginState extends State<login> {
                       ),
                       Expanded(
                         child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>customPage()));
+
+                            },
                             style: OutlinedButton.styleFrom(
                                 backgroundColor: Colors.green[100],
                                 fixedSize: Size(double.infinity, 20),
