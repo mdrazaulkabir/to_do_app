@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: customPage(),
+      home: toDoApp(name: "kabir", namelast: "nohting nike name", phone: '0123', gmail: "kabir@gmail.com"),
     );
   }
 }

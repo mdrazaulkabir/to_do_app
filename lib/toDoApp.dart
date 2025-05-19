@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class toDoApp extends StatefulWidget {
-  final String name,namelast,phone,gmail;
-  const toDoApp({super.key,required this.name,required this.namelast,required this.phone,required this.gmail});
+  final String name, namelast, phone, gmail;
+
+  const toDoApp(
+      {super.key,
+      required this.name,
+      required this.namelast,
+      required this.phone,
+      required this.gmail});
 
   @override
   State<toDoApp> createState() => _toDoAppState();
@@ -20,6 +26,23 @@ class _toDoAppState extends State<toDoApp> {
     return Scaffold(
       backgroundColor: Colors.white70,
       resizeToAvoidBottomInset: true,
+      drawer: Drawer(
+        // backgroundColor: Colors.green,
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(widget.name),
+              accountEmail: Text(widget.gmail),
+              currentAccountPicture: CircleAvatar(radius: 50,backgroundImage: NetworkImage(""),backgroundColor: Colors.yellowAccent),
+
+            ),
+            ListTile(
+              title: Text("setting"),
+              trailing: Icon(Icons.settings),
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(
           "To-Do App",
@@ -57,21 +80,33 @@ class _toDoAppState extends State<toDoApp> {
                           backgroundColor: Colors.greenAccent,
                           color: Colors.black,
                           shadows: [
-                            BoxShadow(offset: Offset(4, 4), blurRadius: 4,color:Colors.blueGrey)
+                            BoxShadow(
+                                offset: Offset(4, 4),
+                                blurRadius: 4,
+                                color: Colors.blueGrey)
                           ]),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Your name is: ${widget.name} ${widget.namelast}",style: TextStyle(fontSize: 18),),
+                    Text(
+                      "Your name is: ${widget.name} ${widget.namelast}",
+                      style: TextStyle(fontSize: 18),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Your phone number is: ${widget.phone} ",style: TextStyle(fontSize: 18),),
+                    Text(
+                      "Your phone number is: ${widget.phone} ",
+                      style: TextStyle(fontSize: 18),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Your email is : ${widget.gmail}",style: TextStyle(fontSize: 18),),
+                    Text(
+                      "Your email is : ${widget.gmail}",
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ],
                 ),
               ),
@@ -124,8 +159,11 @@ class _toDoAppState extends State<toDoApp> {
               //         shape: RoundedRectangleBorder(
               //             borderRadius: BorderRadius.circular(10))),
               //     child: Text("submit")),
-              SizedBox(height: 15,),
-              SizedBox(height: 300,
+              SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                height: 300,
                 child: ListView.builder(
                     itemCount: Task.length,
                     itemBuilder: (context, index) {
@@ -143,7 +181,8 @@ class _toDoAppState extends State<toDoApp> {
                                 icon: Icon(Icons.delete)),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(color: Colors.redAccent, width: 5),
+                              side:
+                                  BorderSide(color: Colors.redAccent, width: 5),
                             )),
                       );
                     }),
